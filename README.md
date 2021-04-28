@@ -1,6 +1,7 @@
 # tree-diet
 
-Implementation of the tree diet algorithm, reducing the treewidth of a graph through min cardinality edge deletion
+Implementation of the tree diet algorithm, reducing the treewidth of a graph through min cardinality edge deletion.
+Code used for numerical experiments in companion paper: https://hal.inria.fr/hal-03206132/
  
 ## installation (Linux, MacOS)
 
@@ -9,7 +10,7 @@ Cloning:
     git clone https://gitlab.inria.fr/amibio/tree-diet.git
     cd tree-diet
 
-Installing dependencies (pybind11, numpy, pytest) ans setting up the environment:
+Installing dependencies (pybind11, numpy, pytest) and setting up the environment:
 
     python3 -m pip install -r requirements.txt
     . ./setenv.sh 
