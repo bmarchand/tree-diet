@@ -1,9 +1,12 @@
-from graph_cpp_routines import optim_num_real_edges, bag, tree_diet
-from graph_pylib import Graph, py_bag, py2cpp
+from tree_diet import tree_diet, py2cpp
+from graph_classes import Bag, Graph
 
 def test_grid():
 
-    G = Graph(9)
+    G = Graph()
+
+    for i in range(9):
+        G.add_vertex(i)
 
     G.add_edge(0,1)
     G.add_edge(1,2)
@@ -22,13 +25,13 @@ def test_grid():
     G.add_edge(6,7)
     G.add_edge(7,8)
 
-    R0 = bag([], 0)
-    R = bag([0,1,2,3], 1)
-    B1 = bag([1,2,3,4], 2)
-    B2 = bag([2,3,4,5], 3)
-    B3 = bag([3,4,5,6], 4)
-    B4 = bag([4,5,6,7], 5)
-    B5 = bag([5,6,7,8], 6)
+    R0 = Bag([])
+    R = Bag([0,1,2,3])
+    B1 = Bag([1,2,3,4])
+    B2 = Bag([2,3,4,5])
+    B3 = Bag([3,4,5,6])
+    B4 = Bag([4,5,6,7])
+    B5 = Bag([5,6,7,8])
 
     R0.add_child(R)
     R.add_child(B1)
@@ -43,26 +46,23 @@ def test_grid():
 
 def test_clique():
 
-    R = bag([], 0)
+    R = Bag([])
 
-    L = bag([0,1,2,3,4], 1)
+    L = Bag([0,1,2,3,4])
 
     R.add_child(L)
 
-    G = Graph(5)
+    G = Graph()
+
+    for u in range(5):
+        G.add_vertex(u)
 
     for u in range(5):
         for v in range(5):
             G.add_edge(u,v)
 
-    c = {}
-   
-     
-    ans = optim_num_real_edges(R, {}, 4, c, G.adj, [],0)
-    num_real = ans
+    num_real, _ = tree_diet(R, G.adj, 4,[])
     
-    print("table ", c)
-
     assert(num_real == 10)
 
     num_real, list_edges = tree_diet(R, G.adj, 3, [])
@@ -75,19 +75,25 @@ def test_clique():
 
 def test_clique_niceTD():
 
-    R = bag([], 0)
+    bag_tags = {}
+
+    R = Bag([])
+    bag_tags[R] = 0
     
-    G = Graph(5)
+    G = Graph()
+
+    for u in range(5):
+        G.add_vertex(u)
 
     for u in range(5):
         for v in range(5):
             G.add_edge(u,v)
 
-    B1 = bag([0,1,2,3,4], 1)
-    B2 = bag([0,1,2,3], 2)
-    B3 = bag([0,1,2], 3)
-    B4 = bag([0,1], 4)
-    B5 = bag([1], 5)
+    B1 = Bag([0,1,2,3,4])
+    B2 = Bag([0,1,2,3])
+    B3 = Bag([0,1,2])
+    B4 = Bag([0,1])
+    B5 = Bag([1])
 
     R.add_child(B1)
     B1.add_child(B2)
@@ -95,7 +101,13 @@ def test_clique_niceTD():
     B3.add_child(B4)
     B4.add_child(B5)
 
-    num_real, list_edges = tree_diet(R, G.adj, 4, [])
+    bag_tags[B1] = 1
+    bag_tags[B2] = 2
+    bag_tags[B3] = 3
+    bag_tags[B4] = 4
+    bag_tags[B5] = 5
+
+    num_real, list_edges = tree_diet(R, G.adj, 4, [], tags=bag_tags)
     assert(num_real == 10)
     assert(num_real == len(list_edges))    
 
@@ -109,7 +121,10 @@ def test_clique_niceTD():
 
 def test_small_branching():
 
-    G = Graph(6)
+    G = Graph()
+
+    for u in range(6):
+        G.add_vertex(u)
 
     G.add_edge(0, 1)
     G.add_edge(1, 2)
@@ -121,12 +136,12 @@ def test_small_branching():
     G.add_edge(3, 5) 
     G.add_edge(4, 5) 
 
-    R = bag([], 0)
+    R = Bag([])
 
-    B1 = bag([1,3,4], 1)
-    B2 = bag([0,1,3], 2)
-    B3 = bag([1,2,4], 3)
-    B4 = bag([3,4,5], 4)
+    B1 = Bag([1,3,4])
+    B2 = Bag([0,1,3])
+    B3 = Bag([1,2,4])
+    B4 = Bag([3,4,5])
 
     R.add_child(B1) 
     B1.add_child(B2)
@@ -142,12 +157,12 @@ def test_small_branching():
 
 def test_py2cpp():
 
-    R = py_bag([])
+    R = Bag([])
 
-    B1 = py_bag([1,3,4])
-    B2 = py_bag([0,1,3])
-    B3 = py_bag([1,2,4])
-    B4 = py_bag([3,4,5])
+    B1 = Bag([1,3,4])
+    B2 = Bag([0,1,3])
+    B3 = Bag([1,2,4])
+    B4 = Bag([3,4,5])
 
     R.add_child(B1) 
     B1.add_child(B2)

@@ -1,2 +1,4 @@
 # /lib
 /lib/*.so
+
+**/__pycache__/**
