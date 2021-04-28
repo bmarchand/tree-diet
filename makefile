@@ -9,5 +9,8 @@ linux:
 macos:
 	c++ $(OSX_FLAGS) $(SRC_FILE) -o $(SO_LIB_NAME)
 
+check:
+	python3 -m pytest tests/
+
 clean:
 	rm lib/*.so

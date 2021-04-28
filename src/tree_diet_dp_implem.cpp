@@ -733,8 +733,8 @@ pair<int, list<pair<int,int>>> tree_diet(bag R,
 }
 
 
-PYBIND11_MODULE(graph_cpp_routines, m) {
-    m.doc() = "cpp routines for graphs"; // optional module docstring
+PYBIND11_MODULE(tree_diet_cpp, m) {
+    m.doc() = "tree diet cpp implementation"; // optional module docstring
 
 
     py::class_<bag>(m, "bag")
