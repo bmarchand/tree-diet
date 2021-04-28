@@ -6,6 +6,9 @@ import numpy as np
 # IMPORTANT CLASSES
 
 class Graph:
+    """
+    simple graph class, just used for producing its adjacency dictionary.
+    """
 
     def __init__(self, list_vertices=None):
 
@@ -39,7 +42,11 @@ class Graph:
 
 
 class Bag:
-
+    """
+    Bag class for constructing tree decompositions.
+    There is no tree decomposition class. A tree decomposition
+    will be represented by its root bag. 
+    """
     def __init__(self, vertices):
 
         self.vertices = vertices

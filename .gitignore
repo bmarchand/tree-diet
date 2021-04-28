@@ -2,3 +2,7 @@
 /lib/*.so
 
 **/__pycache__/**
+*.js
+*.css
+
+doc/_build/*
