@@ -4,6 +4,8 @@ Implementation of the tree diet algorithm, reducing the treewidth of a graph thr
  
 ## installation (Linux, MacOS)
 
+Installing dependencies (pybind11, numpy, pytest) ans setting up the environment.
+
     python3 -m pip install -r requirements.txt
     . ./setenv.sh 
 
