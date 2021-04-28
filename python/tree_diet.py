@@ -1,6 +1,18 @@
-from graph_cpp_routines import bag
+from tree_diet_cpp import bag
+from tree_diet_cpp import tree_diet as cpp_tree_diet
+from graph_classes import recurse_print
 
+def tree_diet(R, adj, target_width, important_edges, tags=None):
 
+    cpp_R = py2cpp(R, tags=tags)
+
+    print("cpp tree")
+    recurse_print(cpp_R[R], 0)
+    print("cpp tree end ")
+
+    result = cpp_tree_diet(cpp_R[R], adj, target_width, important_edges)
+
+    return result
 
 def py2cpp(R, tags=None):
 
@@ -38,5 +50,4 @@ def py2cpp(R, tags=None):
 
             queue.append(c)
 
-    new_R = cpp_equiv[R]
     return cpp_equiv

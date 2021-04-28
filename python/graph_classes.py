@@ -1,7 +1,5 @@
 from itertools import combinations
-import matplotlib.pylab as plt
 import random
-from graph_cpp_routines import bag
 import numpy as np
 
 
@@ -26,6 +24,7 @@ class Graph:
             self.adj[i]
         except KeyError:
             self.adj[i] = set()
+            self.n += 1
             
 
     def add_edge(self, i, j):
