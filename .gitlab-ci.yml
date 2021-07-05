@@ -6,6 +6,8 @@ test:
   - pip install -U sphinx
   - pip install -U numpy
   - pip install -U sphinx-rtd-theme
+  - pip install -U pybind11 
+  - make
   - . ./set_env.sh
   - sphinx-build -b html doc/ public
   only:
@@ -19,6 +21,8 @@ pages:
   - pip install -U sphinx
   - pip install -U numpy
   - pip install -U sphinx-rtd-theme
+  - pip install -U pybind11 
+  - make
   - . ./set_env.sh
   - sphinx-build -b html doc/ public
   artifacts:
