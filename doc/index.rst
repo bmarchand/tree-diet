@@ -25,7 +25,9 @@ This code was used for the numerical experiments in
 .. code-block:: python
 
     from graph_classes import Graph, Bag
-    
+    from tree_diet import tree_diet
+        
+    # Graph Definition
     G = Graph()
      
     for i in range(5):
@@ -44,6 +46,7 @@ This code was used for the numerical experiments in
     G.add_edge(2,4)
     G.add_edge(3,4)
 
+    # Tree Decomposition construction
     R = Bag([])
 
     B1 = Bag([0])
@@ -58,6 +61,7 @@ This code was used for the numerical experiments in
     B3.add_child(B4)
     B4.add_child(B5)
 
+    # Calling Dynamic Programming tree-diet algorithm
     OPT, real_edges = tree_diet(R, G.adj, 2, [])
 
     print(OPT,real_edges)
