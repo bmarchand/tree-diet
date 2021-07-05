@@ -5,6 +5,7 @@ test:
   script:
   - pip install -U sphinx
   - pip install -U sphinx-rtd-theme
+  - . ./set_env.sh
   - sphinx-build -b html doc/ public
   only:
   - branches
@@ -16,6 +17,7 @@ pages:
   script:
   - pip install -U sphinx
   - pip install -U sphinx-rtd-theme
+  - . ./set_env.sh
   - sphinx-build -b html doc/ public
   artifacts:
     paths:
