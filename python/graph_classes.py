@@ -11,6 +11,12 @@ class Graph:
     """
 
     def __init__(self, list_vertices=None):
+        """
+        Graph constructor: optionally takes a list of vertices as input.
+
+        :param list_vertices: Optional list of vertices for the graph, defaults to None
+        :type list_vertices: list, optional
+        """
 
         self.adj = {}
         self.n = 0
@@ -22,6 +28,12 @@ class Graph:
                 self.adj[i] = set()
 
     def add_vertex(self, i):
+        """
+        Adds a vertex to the graph
+
+        :param i: Integer to add as new vertex of the graph. If the vertex is already present nothing happens.
+        :type i: **int**
+        """
 
         try:
             self.adj[i]
@@ -31,6 +43,9 @@ class Graph:
             
 
     def add_edge(self, i, j):
+        """
+        Adds an edge between two vertices
+        """
 
         if i >= self.n:
             return

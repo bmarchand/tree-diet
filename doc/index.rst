@@ -75,6 +75,7 @@ The output should be:
 .. autofunction:: tree_diet.tree_diet
 
 .. autoclass:: graph_classes.Bag
+    :members:
 .. autoclass:: graph_classes.Graph
-
-
+    :members:
+    :private-members:
