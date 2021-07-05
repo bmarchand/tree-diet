@@ -29,3 +29,8 @@ Finally, in either case:
     make check
 
 to launch the tests. If they all pass, you are good to go.
+
+## Source code documentation
+
+A Sphinx-based source code documentation, with minimal execution examples, is
+available at: https://bmarchand-perso.gitlab.io/tree-diet/.
