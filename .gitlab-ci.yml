@@ -4,6 +4,7 @@ test:
   stage: test
   script:
   - pip install -U sphinx
+  - pip install -U numpy
   - pip install -U sphinx-rtd-theme
   - . ./set_env.sh
   - sphinx-build -b html doc/ public
@@ -16,6 +17,7 @@ pages:
   stage: deploy
   script:
   - pip install -U sphinx
+  - pip install -U numpy
   - pip install -U sphinx-rtd-theme
   - . ./set_env.sh
   - sphinx-build -b html doc/ public
