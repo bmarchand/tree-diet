@@ -1,12 +1,12 @@
-image: pybind11-testing
+image: python:3.7-alpine
 
 test:
   stage: test
   script:
   - pip install -U sphinx
+  - pip install -U numpy
   - pip install -U sphinx-rtd-theme
   - . ./set_env.sh
-  - make
   - sphinx-build -b html doc/ public
   only:
   - branches
@@ -17,9 +17,9 @@ pages:
   stage: deploy
   script:
   - pip install -U sphinx
+  - pip install -U numpy
   - pip install -U sphinx-rtd-theme
   - . ./set_env.sh
-  - make
   - sphinx-build -b html doc/ public
   artifacts:
     paths:
