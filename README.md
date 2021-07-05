@@ -1,7 +1,8 @@
 # tree-diet
 
 Implementation of the tree diet algorithm, reducing the treewidth of a graph through min cardinality edge deletion.
-Code used for numerical experiments in companion paper: https://hal.inria.fr/hal-03206132/
+Code used for numerical experiments in companion paper: https://hal.inria.fr/hal-03206132/.
+Source code documentation available at: https://bmarchand-perso.gitlab.io/tree-diet/.
  
 ## installation (Linux, MacOS)
 
