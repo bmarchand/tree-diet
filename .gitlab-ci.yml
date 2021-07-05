@@ -3,9 +3,9 @@ image: python:3.8
 test:
   stage: test
   script:
-  - pip install -U sphinx
+  - pip install -U 'sphinx==3.5.4'
   - pip install -U numpy
-  - pip install -U sphinx-rtd-theme
+  - pip install -U 'sphinx-rtd-theme==0.5.2'
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
@@ -18,9 +18,9 @@ test:
 pages:
   stage: deploy
   script:
-  - pip install -U sphinx
+  - pip install -U 'sphinx==3.5.4'
   - pip install -U numpy
-  - pip install -U sphinx-rtd-theme
+  - pip install -U 'sphinx-rtd-theme==0.5.2'
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
