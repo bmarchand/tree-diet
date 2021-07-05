@@ -9,6 +9,7 @@ test:
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
+  - make check
   - sphinx-build -b html doc/ public
   only:
   - branches
