@@ -4,7 +4,20 @@ from graph_classes import recurse_print
 
 def tree_diet(R, adj, target_width, important_edges, tags=None):
     """
-    main function for eponym method
+    Main function for eponym method.
+
+    :param R: Python Bag instance, root of the input tree decomposition. It needs to be **empty**. 
+    :type R: Bag
+    :param adj: Adjacency dictionary of input graph. Keys are vertices and values lists of neighbors.
+    :type adj: **dict**
+    :param target_width: Target width value.
+    :type target_width: **int** 
+    :param important_edges: List of edges that the algorithm will try to keep in priority. Within the dynamic programming scheme, their deletion will have a large (~infinite) negative impact on the cost function, so keeping them, if possible given the width constraint, is highly favored.
+    :type important_edges: **list**
+    ...
+    ...
+    :return: **(OPT, real_edges)** : A **tuple** consisting of the optimal number of realizable edges given the target width constraint (OPT), and a list of realizable edges of length OPT.
+    :rtype: **tuple**
     """
 
     cpp_R = py2cpp(R, tags=tags)
