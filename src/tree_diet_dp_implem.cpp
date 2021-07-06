@@ -652,20 +652,6 @@ list<pair<int,int>> optim_set_real_edges(bag i,
             int weight = count_weight(f, best_fj[(*j).id_tag], adj, must_have_edges);
             table_entry j_fj = make_pair((*j).id_tag,best_fj[(*j).id_tag]);
 
-            //printing for log parsing afterwards
-            cout << "BAG tag: " << (*j).id_tag << " ";
-            cout << "BAG children: ";
-            for (auto const& k : (*j).children)
-            {
-                cout << " " << (*k).id_tag << " ";
-            }
-            cout << endl;
-            cout << "best coloration :" << endl;
-            for (auto const & u : (*j).vertices)
-            {
-                cout << "vertex " << u << " color " << best_fj[(*j).id_tag][u] << endl;
-            }
-            cout << "END BAG" << endl;
 
             val_m += weight;
             val_m += c[j_fj];
@@ -682,6 +668,20 @@ list<pair<int,int>> optim_set_real_edges(bag i,
 
     for (auto const & j : i.children)
     {
+        //printing for log parsing afterwards
+        cout << "BAG tag: " << (*j).id_tag << " ";
+        cout << "BAG children: ";
+        for (auto const& k : (*j).children)
+        {
+            cout << " " << (*k).id_tag << " ";
+        }
+        cout << endl;
+        cout << "best coloration :" << endl;
+        for (auto const & u : (*j).vertices)
+        {
+            cout << "vertex " << u << " color " << best_fj[(*j).id_tag][u] << endl;
+        }
+        cout << "END BAG" << endl;
         list<pair<int,int>> cnt_set = count_set(f, best_fj[(*j).id_tag], adj);
 
         full_count_set.insert(full_count_set.end(), cnt_set.begin(), cnt_set.end());
