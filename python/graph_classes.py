@@ -8,17 +8,21 @@ import numpy as np
 class Graph:
     """
     simple graph class, just used for producing its adjacency dictionary.
+    
     """
 
     def __init__(self, list_vertices=None):
         """
-        Graph constructor: optionally takes a list of vertices as input.
+        Graph constructor: optionally takes a list of vertices as input to initialize the vertex set.
 
         :param list_vertices: Optional list of vertices for the graph, defaults to None
         :type list_vertices: list, optional
         """
 
+        #: (**dict**) - initialized at {} by __init__. Adjacency dictionary for the graph. The keys are vertices (usually integers) and the values are lists of vertices. The purpose of the graph class is basically to form this dictionary. 
         self.adj = {}
+        
+        #: (**int**) - initialized at 0 bu __init__. Number of vertices. Updated by add_vertex. Equal at all times to the number of entries in adj.
         self.n = 0
 
         if list_vertices:
@@ -26,7 +30,7 @@ class Graph:
 
             for i in list_vertices:
                 self.adj[i] = set()
-
+        
     def add_vertex(self, i):
         """
         Adds a vertex to the graph
@@ -45,6 +49,11 @@ class Graph:
     def add_edge(self, i, j):
         """
         Adds an edge between two vertices
+
+        :param i: an integer describing a vertex.
+        :type i: **int**
+        :param j: an integer describing a vertex.
+        :type j: **int**
         """
 
         if i >= self.n:
@@ -63,11 +72,26 @@ class Bag:
     will be represented by its root bag. 
     """
     def __init__(self, vertices):
+        """
+        Creates a bag containing the vertices given as parameter.
+    
+        :param vertices: list of vertices to include in the bag.
+        :type vertices: **list** 
+        """
 
+        #: (**list**) list of vertices, describing the content of the bag.
         self.vertices = vertices
+
+        #: (**list** <Bag>) list of bags, describing the **children** of the bag in the tree decomposition. There is no Tree Decomposition class. All connectivity information between bags is contained in the **children** fields. 
         self.children = []
 
     def add_child(self, child):
+        """
+        Adds a connection to an existing Bag, which becomes a **child**. Simple call to self.children.append.
+
+        :param child: **child** Bag to connect.
+        :type child: Bag
+        """
 
         self.children.append(child)
 
@@ -105,8 +129,6 @@ class Bag:
             cur_vertices.append(u)
             seq.append(py_bag([u for u in cur_vertices]))
 
-
-    
         self.add_child(seq[0])
         for k in range(1,len(seq),1):
             seq[k-1].add_child(seq[k])
