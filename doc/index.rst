@@ -62,15 +62,20 @@ This code was used for the numerical experiments in
     B4.add_child(B5)
 
     # Calling Dynamic Programming tree-diet algorithm
-    OPT, real_edges = tree_diet(R, G.adj, 2, [])
+    OPT, real_edges, color_dictionary = tree_diet(R, G.adj, 2, [])
 
-    print(OPT,real_edges)
+    print(OPT,real_edges, color_dictionary)
 
 The output should be:
 
 .. code-block:: python
 
-    >> 7, [(0,1),(0,2),(1,2),(1,3),(2,3),(2,4),(3,4)]    
+    >> 7, [(0, 1), (0, 2), (1, 2), (0, 3), (1, 3), (1, 4), (3, 4)], {1: {0: 1}, 2: {0: 1, 1: 1}, 3: {0: 1, 1: 1, 2: 1}, 4: {0: 1, 1: 1, 2: 3, 3: 1}, 5: {1: 1, 2: 3, 3: 1, 4: 1}}
+
+This output means "7 edges are preserved when asking to slim the tree decomposition whose root is R down to a width of 2". The 
+list of preserved edges is given by **real edges** while the color dictionary specifies which vertices to remove in order
+to apply the diet to input tree decomposition.
+
 
 .. autofunction:: tree_diet.tree_diet
 

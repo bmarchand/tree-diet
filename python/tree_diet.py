@@ -17,8 +17,11 @@ def tree_diet(R, adj, target_width, important_edges, tags=None):
 
     :param important_edges: List of edges that the algorithm will try to keep in priority. Within the dynamic programming scheme, their deletion will have a large (~infinite) negative impact on the cost function, so keeping them, if possible given the width constraint, is highly favored.
     :type important_edges: **list**
+    
+    :param tags: dictionnary mapping bags (python objects reprenting bags of the decomposition) to their unique integer identifier. Assigning and using such identifiers for bags is recommended for keeping track of which vertex is removed in which bag.
+    :type tags: **dict**
 
-    :return: **(OPT, real_edges)** : A **tuple** consisting of the optimal number of realizable edges given the target width constraint (OPT), and a list of realizable edges of length OPT.
+    :return: **(OPT, real_edges, color_dict)** : A **tuple** consisting of the optimal number of realizable edges given the target width constraint (OPT), a list of realizable edges of length OPT, and a color dictionary, mapping bag **tags** (the unique integer bag tags) to a dictionary giving the color of the vertices in the bags of the decomposition (1 means keeping the vertex, 2 and 3 means removal).
     :rtype: **tuple**
     """
 
