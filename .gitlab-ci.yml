@@ -28,7 +28,9 @@ pages:
   - make
   - . ./set_env.sh
   - echo $PWD
-  - sphinx-multiversion -c doc/ doc/ public
+  - ls
+  - cd doc/
+  - sphinx-multiversion . ../public
   artifacts:
     paths:
     - public/main
