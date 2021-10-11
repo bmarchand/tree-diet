@@ -22,7 +22,7 @@ class Graph:
         #: (**dict**) - initialized at {} by __init__. Adjacency dictionary for the graph. The keys are vertices (usually integers) and the values are lists of vertices. The purpose of the graph class is basically to form this dictionary. 
         self.adj = {}
         
-        #: (**int**) - initialized at 0 bu __init__. Number of vertices. Updated by add_vertex. Equal at all times to the number of entries in adj.
+        #: (**int**) - initialized at 0 by __init__. Number of vertices. Updated by add_vertex. Equal at all times to the number of entries in adj.
         self.n = 0
 
         if list_vertices:

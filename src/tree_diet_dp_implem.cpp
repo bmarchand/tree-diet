@@ -603,16 +603,20 @@ int optim_num_real_edges(bag &i,
     return c.at(i_f);
 }
 
-list<pair<int,int>> optim_set_real_edges(bag i, 
+//   list of realized edges & vertex cololing in bags
+pair<list<pair<int,int>>,map<int,map<int,int>>> optim_set_real_edges(bag i, 
                                          map<int,int> f, 
                                          adjacency adj,
                                          map<table_entry, int, cmpColoredBags> &c,
-                                         const vector<pair<int,int>> &must_have_edges)
+                                         const vector<pair<int,int>> &must_have_edges,
+                                         bool debug)
 {
+    // base case: leaf
     if (i.children.size()==0)
     {
         list<pair<int,int>> empty_list;
-        return empty_list;
+        map<int, map<int,int>> empty_map;
+        return make_pair(empty_list,empty_map);
     }
     map<int, map<int,int>> best_fj;
     map<int, int> best_valj;
@@ -665,41 +669,58 @@ list<pair<int,int>> optim_set_real_edges(bag i,
     } 
     
     list<pair<int,int>> full_count_set;
+    map<int, map<int,int>> full_vertex_coloring;
 
     for (auto const & j : i.children)
     {
+        map<int,int> local_vertex_coloring;
+
         //printing for log parsing afterwards
-        cout << "BAG tag: " << (*j).id_tag << " ";
-        cout << "BAG children: ";
-        for (auto const& k : (*j).children)
+        if (debug)
         {
-            cout << " " << (*k).id_tag << " ";
+            cout << "BAG tag: " << (*j).id_tag << " ";
+            cout << "BAG children: ";
+            for (auto const& k : (*j).children)
+            {
+                cout << " " << (*k).id_tag << " ";
+            }
+            cout << endl;
+            cout << "best coloration :" << endl;
         }
-        cout << endl;
-        cout << "best coloration :" << endl;
         for (auto const & u : (*j).vertices)
         {
-            cout << "vertex " << u << " color " << best_fj[(*j).id_tag][u] << endl;
+            local_vertex_coloring[u] = best_fj[(*j).id_tag][u];
+            if (debug) cout << "vertex " << u << " color " << best_fj[(*j).id_tag][u] << endl;
         }
-        cout << "END BAG" << endl;
+        if (debug) cout << "END BAG" << endl;
         list<pair<int,int>> cnt_set = count_set(f, best_fj[(*j).id_tag], adj);
 
         full_count_set.insert(full_count_set.end(), cnt_set.begin(), cnt_set.end());
-    
-        list<pair<int,int>> subtree_set;
+        full_vertex_coloring[(*j).id_tag] = local_vertex_coloring;   
+ 
+        pair<list<pair<int,int>>, map<int, map<int,int>>> recursive_result_pair;
 
-        subtree_set = optim_set_real_edges(*j, best_fj[(*j).id_tag], adj, c, must_have_edges);
+        recursive_result_pair = optim_set_real_edges(*j, best_fj[(*j).id_tag], adj, c, must_have_edges, debug);
+
+        list<pair<int,int>> subtree_set = recursive_result_pair.first;
+        map<int, map<int,int>> recursive_coloring = recursive_result_pair.second;
 
         full_count_set.insert(full_count_set.end(), subtree_set.begin(), subtree_set.end());
+        for (auto const& [key, val] : recursive_coloring) full_vertex_coloring[key] = val;
+
     }
 
-    return full_count_set;
+    return make_pair(full_count_set, full_vertex_coloring);
 }
 
-pair<int, list<pair<int,int>>> tree_diet(bag R, 
-                                         adjacency adj, 
-                                         int target_width,
-                                         const vector<pair<int,int>> &must_have_edges)
+tuple<int, // num of preserved edges 
+      list<pair<int,int>>, // list of preserved edges
+      map<int, map<int,int>>> // bag coloration
+      tree_diet(bag R, 
+                adjacency adj, 
+                int target_width,
+                const vector<pair<int,int>> &must_have_edges,
+                bool debug=true)
 {
 
     map<int, int> empty_f;
@@ -707,13 +728,13 @@ pair<int, list<pair<int,int>>> tree_diet(bag R,
     map<table_entry, int, cmpColoredBags> c; //table
 
     int OPT;
-    list<pair<int,int>> real_edges;
-    
+ 
     if (R.vertices.size() > 0)
     {
         cerr << "The root is not empty !!!" << endl;
         cerr << "returning nothing." << endl;
-        return make_pair(OPT, real_edges);
+//        return make_pair(OPT, real_edges);
+        throw invalid_argument("The root of the tree decomposition must be empty.");
     }
 
     OPT = optim_num_real_edges(R, 
@@ -726,9 +747,11 @@ pair<int, list<pair<int,int>>> tree_diet(bag R,
 
     // At this point, the table has been filled, time to backtrack.
 
-    real_edges = optim_set_real_edges(R, empty_f, adj, c, must_have_edges);
+    pair<list<pair<int,int>>, map<int, map<int,int>>> result_pair;
+
+    result_pair = optim_set_real_edges(R, empty_f, adj, c, must_have_edges, debug);
     
-    return make_pair(OPT, real_edges);
+    return make_tuple(OPT, result_pair.first, result_pair.second);
 
 }
 
@@ -754,5 +777,10 @@ PYBIND11_MODULE(tree_diet_cpp, m) {
     
     m.def("tree_diet", 
            &tree_diet, 
-           "");
+           "",
+           py::arg("bag"),
+           py::arg("adjacency"),
+           py::arg("width"),
+           py::arg("must_have_edges"),
+           py::arg("debug")=false);
 }

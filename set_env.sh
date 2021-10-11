@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export PYTHONPATH=${PWD}/lib/:${PWD}/python/
+export PYTHONPATH=${PYTHONPATH}:${PWD}/lib/:${PWD}/python/
