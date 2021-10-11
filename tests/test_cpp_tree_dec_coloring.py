@@ -40,7 +40,7 @@ def test_grid():
     B3.add_child(B4)
     B4.add_child(B5)
     
-    num_real, list_edges = tree_diet(R0, G.adj, 2, [])
+    num_real, list_edges, _ = tree_diet(R0, G.adj, 2, [])
     print(num_real)
     assert(num_real==10)
 
@@ -61,15 +61,15 @@ def test_clique():
         for v in range(5):
             G.add_edge(u,v)
 
-    num_real, _ = tree_diet(R, G.adj, 4,[])
+    num_real, _, _ = tree_diet(R, G.adj, 4,[])
     
     assert(num_real == 10)
 
-    num_real, list_edges = tree_diet(R, G.adj, 3, [])
+    num_real, list_edges, _ = tree_diet(R, G.adj, 3, [])
     assert(num_real == 6)
     assert(num_real == len(list_edges))    
 
-    num_real, list_edges = tree_diet(R, G.adj, 2, [])
+    num_real, list_edges, _ = tree_diet(R, G.adj, 2, [])
     assert(num_real == 3)
     assert(num_real == len(list_edges))    
 
@@ -107,15 +107,15 @@ def test_clique_niceTD():
     bag_tags[B4] = 4
     bag_tags[B5] = 5
 
-    num_real, list_edges = tree_diet(R, G.adj, 4, [], tags=bag_tags)
+    num_real, list_edges, _ = tree_diet(R, G.adj, 4, [], tags=bag_tags)
     assert(num_real == 10)
     assert(num_real == len(list_edges))    
 
-    num_real, list_edges = tree_diet(R, G.adj, 3, [])
+    num_real, list_edges, _ = tree_diet(R, G.adj, 3, [])
     assert(num_real == 9)
     assert(num_real == len(list_edges))    
     
-    num_real, list_edges = tree_diet(R, G.adj, 2, [])
+    num_real, list_edges, _ = tree_diet(R, G.adj, 2, [])
     assert(num_real == 7)
     assert(num_real == len(list_edges))    
 
@@ -150,7 +150,7 @@ def test_small_branching():
 
     ans = tree_diet(R, G.adj, 2, [])
     print(ans)
-    num_real, list_edges = ans
+    num_real, list_edges, _ = ans
     assert(num_real == len(list_edges))    
 
     assert(num_real == 9)

@@ -35,7 +35,7 @@ def test_tiny_big():
     B3.add_child(B4)
     B4.add_child(B5)
 
-    OPT, real_edges = tree_diet(R, G.adj, 2, [])
+    OPT, real_edges, color_dict = tree_diet(R, G.adj, 2, [])
 
     assert(OPT==7)
 
@@ -68,7 +68,7 @@ def test_tiny():
 
     must_have_edges = [(0,1),(1,2),(2,3)]
 
-    OPT, real_edges = tree_diet(R, G.adj, 2, must_have_edges)
+    OPT, real_edges, color_dict = tree_diet(R, G.adj, 2, must_have_edges)
 
     for e in must_have_edges:
         assert(e in real_edges)

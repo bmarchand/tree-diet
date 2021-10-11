@@ -33,7 +33,7 @@ def test_buggy():
 
     recurse_print(R, 0)
 
-    OPT, real_edges = tree_diet(R, G.adj, 2, must_have_edges)
+    OPT, real_edges, _ = tree_diet(R, G.adj, 2, must_have_edges)
 
     for e in must_have_edges:
         assert(e in real_edges)
