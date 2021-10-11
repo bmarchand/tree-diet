@@ -11,7 +11,7 @@ test:
   - make
   - . ./set_env.sh
   - make check
-  - sphinx-build doc/ public
+  - sphinx-build -b html doc/ public
   only:
   - branches
   except:
@@ -27,7 +27,7 @@ pages:
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
-  - sphinx-build doc/ public
+  - sphinx-build -b html doc/ public
   artifacts:
     paths:
     - public
