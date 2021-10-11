@@ -25,9 +25,6 @@ pages:
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
-  - echo $PWD
-  - ls
-  - cd doc/
   - sphinx-build -b html doc/ public
   artifacts:
     paths:
