@@ -28,18 +28,18 @@ author = 'Bertrand M.'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
-              "sphinx_rtd_theme",
-              'sphinx_multiversion'
+              "sphinx_rtd_theme"
+#              'sphinx_multiversion'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-html_sidebars = {
-    '**': [
-        'versioning.html',
-    ],
-}
+#html_sidebars = {
+#    '**': [
+#        'versioning.html',
+#    ],
+#}
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

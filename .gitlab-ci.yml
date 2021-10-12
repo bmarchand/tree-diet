@@ -28,6 +28,6 @@ pages:
   - sphinx-build -b html doc/ public
   artifacts:
     paths:
-    - public
+    - public/main
   only:
   - main
