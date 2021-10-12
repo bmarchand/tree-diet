@@ -6,7 +6,6 @@ test:
   - pip install -U 'sphinx==3.5.4'
   - pip install -U numpy
   - pip install -U 'sphinx-rtd-theme==0.5.2'
-  - pip install -U sphinx-multiversion
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
@@ -23,11 +22,10 @@ pages:
   - pip install -U 'sphinx==3.5.4'
   - pip install -U numpy
   - pip install -U 'sphinx-rtd-theme==0.5.2'
-  - pip install -U sphinx-multiversion
   - pip install -U pybind11 
   - make
   - . ./set_env.sh
-  - sphinx-multiversion -c doc/ doc/ public
+  - sphinx-build -b html doc/ public
   artifacts:
     paths:
     - public/main
