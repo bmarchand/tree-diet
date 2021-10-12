@@ -64,6 +64,85 @@ class Graph:
         self.adj[i].add(j)
         self.adj[j].add(i)
 
+def impossible_diet(R, target_width, important_edges):
+
+    # switching to adjacency representation of TD:
+    bag_adj = {}
+
+    queue = [R]
+    
+    while len(queue)>0:
+        B = queue.pop()
+        for c in B.children:
+            try:
+                bag_adj[B].append(c)
+            except KeyError:
+                bag_adj[B] = [c]
+            try:
+                bag_adj[c].append(B)
+            except KeyError:
+                bag_adj[c] = [B]
+
+            queue.add(c)
+
+    # auxiliary function: finding on the other side of which sep of B is u.
+    def find_sep(B,u):
+        assert(u not in B.vertices)
+        queue = []
+        for N in bag_adj[B]:
+            sep = set(B.vertices).intersection(set(N.vertices))
+            queue.add((N,sep))
+        
+        while len(queue) > 0:
+            C, sep = queue.pop()
+            if u in C:
+                return sep
+            for N in bag_adj[C]:
+                queue.append((N,sep))
+        
+    
+    # Going through the tree looking for bags for which diet implies necesarily
+    # breaking important edges.
+    
+    queue = [R]
+
+    while len(queue) > 0:
+        B = queue.pop()
+
+        count_problematic = 0
+        for u in B.vertices:
+            seps_involved = set([]) # seps separating u, v important edge. 
+
+            for e in important_edges:
+                if e[0]==u or e[1]==u:
+                    if e[0]==u:
+                        v=e[1]
+                    if e[1]==u:
+                        v=e[0]
+
+                    if v not in B.vertices:
+                        seps_involved.add(find_sep(B, v))
+
+            if len(seps_involved) > 1:
+                count_problematic += 1
+
+        if count_problematic > target_width+1:
+            return False
+
+        for C in B.children:
+            queue.append(B)
+
+    #If survived all checks for all bags
+    return True
+        
+
+        
+
+                    
+
+            
+
+
 
 class Bag:
     """
