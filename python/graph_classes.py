@@ -65,6 +65,35 @@ class Graph:
         self.adj[j].add(i)
 
 def impossible_diet(R, target_width, important_edges):
+    """
+    Detects the presence of a specific kind of obstacle to the existence
+    of a diet achieving target width while preserving all
+    elements of important_edges.
+ 
+    The obstacle detected here is the presence of a too large number
+    of "problematic vertices" in a bag. A problematic vertex is involved
+    in at least two important edges, such that they are realized
+    on different sides of one of the edges of the bag. This situation implies that
+    removing the vertex from the bag breaks at least one of these
+    two important edges.
+
+    If this function returns true, then a diet achieving target_width without
+    breaking important edges is definitely impossible.
+    If this function returns false, then the existence of a diet achieving 
+    target width without breaking important edges is maybe possible but
+    not guaranteed (the obstacle does not catch (yet ?) all important
+    edge breaking scenari)
+
+    :param R: A **bag**, the root of the tree decomposition.
+    :type R: **bag** 
+
+    :param target_width: the target width of the diet
+    :type target_width: **integer**   
+
+    :param important_edges: A list of important edges, i.e a list of 2-uples
+    of vertices.
+    :type important_edges: **list** of 2-uples of vertices.
+    """
 
     # switching to adjacency representation of TD:
     bag_adj = {}
@@ -72,6 +101,7 @@ def impossible_diet(R, target_width, important_edges):
     queue = [R]
     
     while len(queue)>0:
+        print("ADJ LEN ", len(queue))
         B = queue.pop()
         for c in B.children:
             try:
@@ -83,22 +113,31 @@ def impossible_diet(R, target_width, important_edges):
             except KeyError:
                 bag_adj[c] = [B]
 
-            queue.add(c)
+            queue.append(c)
 
     # auxiliary function: finding on the other side of which sep of B is u.
     def find_sep(B,u):
         assert(u not in B.vertices)
         queue = []
+
+        marked = {}
+        for BB in bag_adj.keys():
+            marked[BB] = False
+
         for N in bag_adj[B]:
-            sep = set(B.vertices).intersection(set(N.vertices))
-            queue.add((N,sep))
+            sep = frozenset(set(B.vertices).intersection(set(N.vertices)))
+            queue.append((N,sep))
+            marked[N] = True
         
         while len(queue) > 0:
+            print("len ",len(queue))
             C, sep = queue.pop()
-            if u in C:
+            marked[C] = True
+            if u in C.vertices:
                 return sep
             for N in bag_adj[C]:
-                queue.append((N,sep))
+                if not marked[N]:
+                    queue.append((N,sep))
         
     
     # Going through the tree looking for bags for which diet implies necesarily
@@ -107,6 +146,7 @@ def impossible_diet(R, target_width, important_edges):
     queue = [R]
 
     while len(queue) > 0:
+        print("LEN ",len(queue))
         B = queue.pop()
 
         count_problematic = 0
@@ -130,7 +170,7 @@ def impossible_diet(R, target_width, important_edges):
             return False
 
         for C in B.children:
-            queue.append(B)
+            queue.append(C)
 
     #If survived all checks for all bags
     return True
