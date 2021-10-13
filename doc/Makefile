@@ -1,4 +1,4 @@
-SPHINXBUILD   ?= sphinx-multiversion
+SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build/html
 

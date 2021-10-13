@@ -101,7 +101,6 @@ def impossible_diet(R, target_width, important_edges):
     queue = [R]
     
     while len(queue)>0:
-        print("ADJ LEN ", len(queue))
         B = queue.pop()
         for c in B.children:
             try:
@@ -130,7 +129,6 @@ def impossible_diet(R, target_width, important_edges):
             marked[N] = True
         
         while len(queue) > 0:
-            print("len ",len(queue))
             C, sep = queue.pop()
             marked[C] = True
             if u in C.vertices:
@@ -146,7 +144,6 @@ def impossible_diet(R, target_width, important_edges):
     queue = [R]
 
     while len(queue) > 0:
-        print("LEN ",len(queue))
         B = queue.pop()
 
         count_problematic = 0
