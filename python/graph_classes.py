@@ -163,14 +163,15 @@ def impossible_diet(R, target_width, important_edges):
             if len(seps_involved) > 1:
                 count_problematic += 1
 
+#        print(B.vertices, "count_problematic: ", count_problematic)
         if count_problematic > target_width+1:
-            return False
+            return True
 
         for C in B.children:
             queue.append(C)
 
     #If survived all checks for all bags
-    return True
+    return False
         
 
         
