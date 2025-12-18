@@ -5,7 +5,7 @@ Code used for numerical experiments in companion paper: https://hal.inria.fr/hal
 Source code documentation available at: https://bmarchand-perso.gitlab.io/tree-diet/.
 
 ## Installation
-The package is on pypi: https://pypi.org/project/treediet/0.1.0/
+The package is on pypi: https://pypi.org/project/treediet/
 ```
 pip install treediet
 ```
