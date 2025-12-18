@@ -12,6 +12,7 @@ name = "treediet"
 version = "0.1.0"
 description = "https://link.springer.com/article/10.1186/s13015-022-00213-z"
 requires-python = ">=3.9"
+readme = "TREEDIET.md"
 
 authors = [
     {name = "Bertrand Marchand",email = "bertrand.marchand7@gmail.com"}
