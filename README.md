@@ -59,6 +59,7 @@ pip install treediet
 ## build and publishing
 ```
 cibuildwheel --output-dir dist
+python3 -m build --sdist
 ```
 
 ## (old) Manual install (Linux, MacOS)
