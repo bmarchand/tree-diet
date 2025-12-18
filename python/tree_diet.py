@@ -1,6 +1,6 @@
 from tree_diet_cpp import bag
 from tree_diet_cpp import tree_diet as cpp_tree_diet
-from graph_classes import recurse_print
+from treediet.graph_classes import recurse_print
 
 def tree_diet(R, adj, target_width, important_edges, tags=None):
     """

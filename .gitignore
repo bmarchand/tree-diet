@@ -1,4 +1,8 @@
 # /lib
+wheelhouse/
+**.egg-info/*
+build/
+dist/
 /lib/*.so
 
 **/__pycache__/**
