@@ -55,7 +55,12 @@ pip install treediet
     
     print(OPT,real_edges, color_dictionary)
 ```
- 
+
+## build and publishing
+```
+cibuildwheel --output-dir dist
+```
+
 ## (old) Manual install (Linux, MacOS)
 
 Cloning:
